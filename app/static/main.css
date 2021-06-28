@@ -5,3 +5,12 @@
 .logo {
     max-width: 85%;
 }
+
+.navbar-img {
+    width: 100px;
+    height: auto;
+}
+
+.navbar-custom {
+    background-color: #FFEEDD;
+}
