@@ -14,3 +14,9 @@
 .navbar-custom {
     background-color: #FFEEDD;
 }
+
+hr {
+    width: 75%;
+    display: block;
+    margin: auto;
+}
