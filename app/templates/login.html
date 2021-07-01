@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12 col-sm-2 col-md-4"></div>
+        <div class="col-12 col-sm-8 col-md-4 my-5">
+
+            <img src='https://res.cloudinary.com/dbqwjxuhv/image/upload/v1624827299/trackit-removebg-preview_fvlkcg.png' class='logo'>
+
+            <!-- <h1 class="my-4">Login</h1> -->
+
+            <form action="" method="">
+                <div class="form-group d-flex flex-column justify-content-center">
+                    <fieldset class="my-2">
+                        Username:
+                        <input type='text' class='form-control white borderless' placeholder='Username' name='username'/>
+                    </fieldset>
+                    <fieldset class="my-2">
+                        Password:
+                        <input type='password' class='form-control white borderless' placeholder='Password' name='password'/>
+                    </fieldset>
+                    <button class='btn primary my-3'>Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 col-sm-2 col-md-4"></div>
+    </div>
+
+{% endblock content %}

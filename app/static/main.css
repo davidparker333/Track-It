@@ -20,3 +20,28 @@ hr {
     display: block;
     margin: auto;
 }
+
+.primary {
+    background-color: #B8B8FF;
+}
+
+.secondary {
+    background-color: #9381FF;
+}
+
+.white {
+    background-color: #FFEEDD;
+}
+
+.borderless {
+    outline: 0;
+    border-width: 0 0 1px;
+    border-color: #B8B8FF;
+}
+
+.borderless:focus {
+    background-color: #FFEEDD;
+    outline: 0;
+    border-width: 0 0 1px;
+    border-color: #B8B8FF;
+}
