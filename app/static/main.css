@@ -1,3 +1,11 @@
+.roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+.roboto-condensed {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
 .purple {
     background-color: #FFEEDD;
 }
