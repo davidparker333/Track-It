@@ -10,17 +10,22 @@
 
             <!-- <h1 class="my-4">Login</h1> -->
 
-            <form action="" method="">
+            <form action="" method="POST">
+                {{ form.hidden_tag() }}
                 <div class="form-group d-flex flex-column justify-content-center">
                     <fieldset class="my-2">
-                        Username:
-                        <input type='text' class='form-control white borderless' placeholder='Username' name='username'/>
+                        {{ form.username.label }}
+                        {{ form.username(class="form-control white borderless", placeholder="ilovetotrack") }}
                     </fieldset>
                     <fieldset class="my-2">
-                        Password:
-                        <input type='password' class='form-control white borderless' placeholder='Password' name='password'/>
+                        {{ form.password.label }}
+                        {{ form.password(class="form-control white borderless", placeholder="********") }}
                     </fieldset>
-                    <button class='btn primary my-3'>Submit</button>
+                    <fieldset>
+                        {{ form.remember_me(class="check-input") }}
+                        {{ form.remember_me.label(class="form-check-label") }}
+                    </fieldset>
+                    {{ form.submit(class="btn primary my-3") }}
                 </div>
             </form>
         </div>

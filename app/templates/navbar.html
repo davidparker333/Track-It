@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container">
+      <!-- <a class="navbar-brand" href="#">Track-It</a> -->
+      <img src='https://res.cloudinary.com/dbqwjxuhv/image/upload/v1624827299/trackit-removebg-preview_fvlkcg.png' class='navbar-img'>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ url_for('home.index') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
+        <div class="d-flex">
+            <a href="{{ url_for('auth.login') }}"><button class="btn primary mx-1" type="submit">Login</button></a>
+            <a href="{{ url_for('home.register') }}"><button class="btn secondary mx-1" type="submit">Sign Up</button></a>
+        </div>
+      </div>
+    </div>
+  </nav>

@@ -10,25 +10,26 @@
 
         <!-- <h1 class="my-4">Register Here</h1> -->
 
-        <form action="" method="">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
             <div class="form-group d-flex flex-column justify-content-center">
                 <fieldset class="my-2">
-                    Username:
-                    <input type='text' class='form-control white borderless' placeholder='JohnSmith' name='username' />
+                    {{ form.username.label }}
+                    {{ form.username(class="form-control white borderless", placeholder="ilovetotrack") }}
                 </fieldset>
                 <fieldset class="my-2">
-                    Email: 
-                    <input type='email' class='form-control white borderless' placeholder='someone@example.com' name='email' />
+                    {{ form.email.label }} 
+                    {{ form.email(class="form-control white borderless", placeholder="trackerfan@example.com") }}
                 </fieldset>
                 <fieldset class="my-2">
-                    Password:
-                    <input type='password' class='form-control white borderless' placeholder='Password' name='password' />
+                    {{ form.password.label }}
+                    {{ form.password(class="form-control white borderless", placeholder="********") }}
                 </fieldset>
                 <fieldset class="my-2">
-                    Confirm Password:
-                    <input type='password' class='form-control white borderless' placeholder='Confirm Password' name='confirmpassword' />
+                    {{ form.confirm_pass.label }}
+                    {{ form.confirm_pass(class="form-control white borderless", placeholder="********") }}
                 </fieldset>
-                <button class='btn primary my-3'>Submit</button>
+                {{ form.submit(class="btn primary my-3") }}
             </div>
         </form>
     </div>

@@ -17,3 +17,9 @@ class User(db.Model, UserMixin):
         self.username = username
         self.email = email
         self.password = generate_password_hash(password)
+
+    def __repr__(self):
+        return f'<User Object | {self.username}>'
+
+    def __str__(self):
+        return f'User - {self.username} / ID {self.id}'
