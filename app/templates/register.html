@@ -6,27 +6,25 @@
     <div class="col-12 col-sm-2 col-md-4"></div>
     <div class="col-12 col-sm-8 col-md-4 my-5">
 
-        <img src='https://res.cloudinary.com/dbqwjxuhv/image/upload/v1624827299/trackit-removebg-preview_fvlkcg.png' class='logo'>
-
-        <!-- <h1 class="my-4">Register Here</h1> -->
+        <div class="d-flex justify-content-center align-items-center mx-2 my-4"><i class="fas fa-box-open logo big-logo my-1 mx-2"></i><h1 class="open-sans no-margin">register</h1></div>
 
         <form action="" method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group d-flex flex-column justify-content-center">
                 <fieldset class="my-2">
-                    {{ form.username.label }}
+                    {{ form.username.label(class="my-1") }}
                     {{ form.username(class="form-control white borderless", placeholder="ilovetotrack") }}
                 </fieldset>
                 <fieldset class="my-2">
-                    {{ form.email.label }} 
+                    {{ form.email.label(class="my-1") }} 
                     {{ form.email(class="form-control white borderless", placeholder="trackerfan@example.com") }}
                 </fieldset>
                 <fieldset class="my-2">
-                    {{ form.password.label }}
+                    {{ form.password.label(class="my-1") }}
                     {{ form.password(class="form-control white borderless", placeholder="********") }}
                 </fieldset>
                 <fieldset class="my-2">
-                    {{ form.confirm_pass.label }}
+                    {{ form.confirm_pass.label(class="my-1") }}
                     {{ form.confirm_pass(class="form-control white borderless", placeholder="********") }}
                 </fieldset>
                 {{ form.submit(class="btn primary my-3") }}

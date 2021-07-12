@@ -13,7 +13,8 @@
 }
 
 .logo {
-    max-width: 85%;
+    color:#9381FF;
+    font-size: 1.3rem;
 }
 
 .navbar-img {
@@ -72,4 +73,16 @@ a {
 a:hover {
     text-decoration: none;
     color: #9381FF;
+}
+
+.primary-foreground {
+    color: #B8B8FF;
+}
+
+.no-margin {
+    margin: 0px 0px 0px .1rem;
+}
+
+.big-logo {
+    font-size: 3rem;
 }
