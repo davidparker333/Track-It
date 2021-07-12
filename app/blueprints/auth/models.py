@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(150), nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
+    packages = db.relationship('Package', backref='customer', lazy='dynamic')
 
     def __init__(self, username, email, password):
         self.username = username
