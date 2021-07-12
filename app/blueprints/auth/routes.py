@@ -22,3 +22,9 @@ def login():
         flash("You have successfully logged in!", 'success')
         return redirect(url_for('home.index'))
     return render_template('login.html', title=title, form=form)
+
+@auth.route('/logout')
+def logout():
+    logout_user()
+    flash('You have successfully been logged out', 'warning')
+    return redirect(url_for('home.index'))
