@@ -20,7 +20,7 @@ def login():
             return redirect(url_for('auth.login'))
         login_user(user, remember=form.remember_me.data)
         flash("You have successfully logged in!", 'success')
-        return redirect(url_for('home.index'))
+        return redirect(url_for('track.index'))
     return render_template('login.html', title=title, form=form)
 
 @auth.route('/logout')

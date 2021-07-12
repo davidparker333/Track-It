@@ -26,4 +26,7 @@ def create_app(config_class=Config):
         from app.blueprints.auth import bp as auth
         app.register_blueprint(auth)
 
+        from app.blueprints.track import bp as track
+        app.register_blueprint(track)
+
     return app
