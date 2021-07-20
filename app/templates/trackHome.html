@@ -7,7 +7,7 @@
         <h2 class="open-sans-light">Your Packages</h2>
     </div>
     <div class="col-5 col-md-2">
-        <button class="btn primary wide">Add</button>
+        <a href="{{ url_for('track.add_package') }}"><button class="btn primary wide">Add</button></a>
     </div>
 </div>
 <div class="row">
@@ -15,9 +15,10 @@
         {% if packages == [] %}
         <h6 class="open-sans-light">You're not tracking any packages yet. Click on "Add" to keep tabs on your stuff!</h6>
         {% endif %}
+        <!-- if packages, show packages -->
     </div>
     <div class="col-12 col-md-4">
-        
+        <!-- Edit button? -->
 
     </div>
 

@@ -10,3 +10,8 @@ from flask_login import login_required, current_user
 def index():
     packages = Package.query.filter(Package.customer_id == current_user.id).all()
     return render_template('trackHome.html', packages=packages)
+
+@track.route('/add')
+@login_required
+def add_package():
+    return render_template('addPackage.html')
