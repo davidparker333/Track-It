@@ -7,8 +7,27 @@
         <h2 class="open-sans-light">Add Package</h2>
     </div>
     <div class="col-5 col-md-2">
-        <button class="btn primary wide">Save</button>
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+        {{ form.submit(class="btn primary wide") }}
     </div>
+</div>
+<div class="row d-flex flex-row">
+    <div class="col-12 col-md-5 my-5">
+        <h5 class="open-sans mx-5">Carrier:</h5>
+    </div>
+    <div class="col-12 col-md-7 my-5">
+            {{ form.carrier(class="form-select white borderless mx-5") }}
+    </div>
+    <div class="col-12 col-md-5 my-5">
+        <h5 class="open-sans mx-5">Tracking #:</h5>
+    </div>
+    <div class="col-12 col-md-7 my-5">
+        <div class="mb-3">
+            {{ form.tracking_number(class="form-control mx-5 width-cap white borderless", placeholder="Tracking Number") }}
+          </div>
+    </div>
+</form>
 </div>
 
 {% endblock content %}

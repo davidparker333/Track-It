@@ -2,6 +2,7 @@ from app.blueprints.track.models import Package
 from . import bp as track
 from app import db
 from .models import Package, Event
+from .forms import PackageForm
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 
@@ -14,4 +15,5 @@ def index():
 @track.route('/add')
 @login_required
 def add_package():
-    return render_template('addPackage.html')
+    form = PackageForm()
+    return render_template('addPackage.html', form=form)

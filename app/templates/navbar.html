@@ -32,17 +32,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{ url_for('track.index') }}">Home</a>
+          <a class="nav-link active mx-2" aria-current="page" href="{{ url_for('track.index') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" aria-current="page" href="{{ url_for('track.add_package') }}">New Package</a>
         </li>
       </ul>
-      <li class="dropdown mx-3">
-        <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="fas fa-plus"></i>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="{{ url_for('track.add_package') }}">Add Package</a></li>
-        </ul>
-      </li>
       <li class="dropdown">
         <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fas fa-user"></i>

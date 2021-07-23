@@ -86,3 +86,7 @@ a:hover {
 .big-logo {
     font-size: 3rem;
 }
+
+.width-cap {
+    max-width: 100%;
+}
