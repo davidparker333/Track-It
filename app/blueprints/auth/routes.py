@@ -14,7 +14,6 @@ def login():
         username = form.username.data
         password = form.password.data
         user = User.query.filter(User.username == username).first()
-        print(check_password_hash(user.password, password))
         if user is None or not check_password_hash(user.password, password):
             flash("Incorrect Username / Password. Please try again", 'danger')
             return redirect(url_for('auth.login'))
