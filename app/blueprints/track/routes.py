@@ -12,12 +12,14 @@ from flask_login import login_required, current_user
 @track.route('/')
 @login_required
 def index():
+    title = "home"
     packages = Package.query.filter(Package.customer_id == current_user.id).all()
-    return render_template('trackHome.html', packages=packages)
+    return render_template('trackHome.html', packages=packages, title=title)
 
 @track.route('/add', methods=['GET', 'POST'])
 @login_required
 def add_package():
+    title = "add"
     form = PackageForm()
     if request.method == 'POST' and form.validate_on_submit():
         user = User.query.get(current_user.id)
@@ -27,16 +29,17 @@ def add_package():
         if tracking_number.isalpha() or response.json()['status_code'] == "UN":
             flash("Unknown tracking number entered. Please check and try again.", "danger")
             return redirect(url_for('track.add_package'))
-        # elif Package.query.filter(Package.tracking_number == tracking_number).filter(Package.customer_id == user.id).first():
-        #     flash("You're already tracking that package!", "warning")
-        #     return redirect(url_for('track.add_package'))
+        elif Package.query.filter(Package.tracking_number == tracking_number).filter(Package.customer_id == user.id).first():
+            flash("You're already tracking that package!", "warning")
+            return redirect(url_for('track.add_package'))
         else:
             package = Package(user.id, tracking_number, carrier)
-            # Working on this populate method right now. Check the model
+            # Add and commit the package first so it can get an ID
+            db.session.add(package)
+            db.session.commit()
+            # Populate the additional fields and create all Event objects (now tied to that ID)
             package.populate()
-            print(package.status_description)
-            # db.session.add(package)
-            # db.session.commit()
+            db.session.commit()
             flash('Package added successfully!', 'success')
             return redirect(url_for('track.index'))
-    return render_template('addPackage.html', form=form)
+    return render_template('addPackage.html', form=form, title=title)

@@ -39,8 +39,15 @@ class Package(db.Model):
         self.estimated_delivery_date = response['estimated_delivery_date']
         self.actual_delivery_date = response['actual_delivery_date']
         self.exception_description = response['exception_description']
-        # There's a problem with this for some reason. Check into this
-        # self.events = response['events']
+        for event in response['events']:
+            new_event = Event(self.id, event['description'])
+            new_event.occured_at = event['occurred_at']
+            new_event.city_locality = event['city_locality']
+            new_event.state = event['state_province']
+            new_event.postal_code = event['postal_code']
+            new_event.signer = event['signer']
+            db.session.add(new_event)
+            db.session.commit()
 
 
 class Event(db.Model):
