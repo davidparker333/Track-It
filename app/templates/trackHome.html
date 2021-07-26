@@ -15,7 +15,17 @@
         {% if packages == [] %}
         <h6 class="open-sans-light">You're not tracking any packages yet. Click on "Add" to keep tabs on your stuff!</h6>
         {% endif %}
-        <!-- if packages, show packages -->
+        {% for package in packages %}
+            <div class="col-12 col-md-6">
+              <div class="card white">
+                <div class="card-body">
+                  <h5 class="card-title">{{ package.nickname }}</h5>
+                  <p class="card-text">{{ package.status_description }} {{ package.actual_delivery_date }}</p>
+                  <a href="#" class="btn primary">More Info</a>
+                </div>
+              </div>
+              </div>
+        {% endfor %}
     </div>
     <div class="col-12 col-md-4">
         <!-- Edit button? -->

@@ -18,11 +18,13 @@ class Package(db.Model):
     exception_description = db.Column(db.String(255))
     carrier = db.Column(db.String(100), nullable=False)
     events = db.relationship('Event', backref='package', lazy='dynamic')
+    nickname = db.Column(db.String(150), nullable=False)
 
-    def __init__(self, customer_id, tracking_number, carrier):
+    def __init__(self, customer_id, tracking_number, carrier, nickname):
         self.customer_id = customer_id
         self.tracking_number = tracking_number
         self.carrier = carrier
+        self.nickname = nickname
 
     def __repr__(self):
         return f'<Package Object | {self.id}>'

@@ -25,6 +25,7 @@ def add_package():
         user = User.query.get(current_user.id)
         carrier = form.carrier.data
         tracking_number = form.tracking_number.data
+        nickname = form.nickname.data
         response = requests.get(Track_Config.base + f'carrier_code={Track_Config.carrier_codes[carrier]}&tracking_number={tracking_number}', headers=Track_Config.headers)
         if tracking_number.isalpha() or response.json()['status_code'] == "UN":
             flash("Unknown tracking number entered. Please check and try again.", "danger")
@@ -33,7 +34,7 @@ def add_package():
             flash("You're already tracking that package!", "warning")
             return redirect(url_for('track.add_package'))
         else:
-            package = Package(user.id, tracking_number, carrier)
+            package = Package(user.id, tracking_number, carrier, nickname)
             # Add and commit the package first so it can get an ID
             db.session.add(package)
             db.session.commit()
