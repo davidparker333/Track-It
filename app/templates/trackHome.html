@@ -20,7 +20,7 @@
               <div class="card white">
                 <div class="card-body">
                   <h5 class="card-title">{{ package.nickname }}</h5>
-                  <p class="card-text">{{ package.status_description }} {{ package.actual_delivery_date }}</p>
+                  <p class="card-text">{{ package.status_description }} {{ moment(package.actual_delivery_date).format('MM-DD-YY') }}</p>
                   <a href="#" class="btn primary">More Info</a>
                 </div>
               </div>
