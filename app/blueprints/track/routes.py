@@ -8,13 +8,18 @@ from app.blueprints.auth.models import User
 from .forms import PackageForm
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
+from sqlalchemy import desc
 
 @track.route('/')
 @login_required
 def index():
     title = "home"
     packages = Package.query.filter(Package.customer_id == current_user.id).all()
-    return render_template('trackHome.html', packages=packages, title=title)
+    events = []
+    for package in packages:
+        event = Event.query.filter(Event.package_id == package.id).order_by(desc('occured_at')).first()
+        events.append(event)
+    return render_template('trackHome.html', packages=packages, title=title, events=events)
 
 @track.route('/add', methods=['GET', 'POST'])
 @login_required
