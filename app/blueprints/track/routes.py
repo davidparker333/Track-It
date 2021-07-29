@@ -16,10 +16,19 @@ def index():
     title = "home"
     packages = Package.query.filter(Package.customer_id == current_user.id).all()
     events = []
+    emojis = []
     for package in packages:
         event = Event.query.filter(Event.package_id == package.id).order_by(desc('occured_at')).first()
         events.append(event)
-    return render_template('trackHome.html', packages=packages, title=title, events=events)
+        if event.description == 'Delivered':
+            emojis.append('📦🎉')
+        elif "delivery" in event.description:
+            emojis.append('🚚')
+        elif "facility" in event.description:
+            emojis.append('🏭')
+        else:
+            emojis.append('📦💨')
+    return render_template('trackHome.html', packages=packages, title=title, events=events, emojis=emojis)
 
 @track.route('/add', methods=['GET', 'POST'])
 @login_required

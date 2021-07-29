@@ -11,27 +11,21 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-12 col-md-8">
         {% if packages == [] %}
         <h6 class="open-sans-light">You're not tracking any packages yet. Click on "Add" to keep tabs on your stuff!</h6>
         {% endif %}
         {% for package in packages %}
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-3 my-3">
               <div class="card white">
                 <div class="card-body">
-                  <h5 class="card-title">{{ package.nickname }}</h5>
-                  <p class="card-text">{{ events[loop.index0].description }} | {{ moment(events[loop.index0].occured_at).format('MM-DD-YY h:mm A') }}</p>
-                  <a href="#" class="btn primary">More Info</a>
+                  <h4 class="card-title mb-3 text-center">{{ package.nickname }}</h4>
+                  <p class="card-text text-center">{{ events[loop.index0].description }} {{ emojis[loop.index0] }}</p>
+                  <p class="card-text text-center">{{ moment(events[loop.index0].occured_at).format('MM-DD-YY h:mm A') }}</p>
+                  <a href="#" class="btn primary center">More Info</a>
                 </div>
               </div>
               </div>
         {% endfor %}
-    </div>
-    <div class="col-12 col-md-4">
-        <!-- Edit button? -->
-
-    </div>
-
 </div>
 
 {% endblock content %}
