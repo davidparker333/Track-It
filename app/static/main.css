@@ -57,10 +57,6 @@ hr {
     border-color: #B8B8FF;
 }
 
-.wide {
-    width: 100%;
-}
-
 li {
     list-style: none;
 }
@@ -91,7 +87,6 @@ a:hover {
     max-width: 100%;
 }
 
-.center {
-    display: block;
-    margin: auto;
+.wide {
+    width: 49%
 }

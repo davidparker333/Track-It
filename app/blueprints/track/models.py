@@ -2,6 +2,7 @@ from app import db
 from .track_config import Track_Config
 import requests
 import datetime
+from sqlalchemy import desc
 
 class Package(db.Model):
 
@@ -19,12 +20,14 @@ class Package(db.Model):
     carrier = db.Column(db.String(100), nullable=False)
     events = db.relationship('Event', backref='package', lazy='dynamic')
     nickname = db.Column(db.String(150), nullable=False)
+    updated = db.Column(db.Boolean())
 
     def __init__(self, customer_id, tracking_number, carrier, nickname):
         self.customer_id = customer_id
         self.tracking_number = tracking_number
         self.carrier = carrier
         self.nickname = nickname
+        self.updated = False
 
     def __repr__(self):
         return f'<Package Object | {self.id}>'
@@ -33,6 +36,7 @@ class Package(db.Model):
         return f'Package - {self.tracking_number} / ID {self.id}'
 
     def populate(self):
+        from datetime import datetime
         response = requests.get(Track_Config.base + f'carrier_code={Track_Config.carrier_codes[self.carrier]}&tracking_number={self.tracking_number}', headers=Track_Config.headers).json()
         self.tracking_url = response['tracking_url']
         self.status = response['status_code']
@@ -41,6 +45,7 @@ class Package(db.Model):
         self.estimated_delivery_date = response['estimated_delivery_date']
         self.actual_delivery_date = response['actual_delivery_date']
         self.exception_description = response['exception_description']
+        events = Event.query.filter(Event.package_id == self.id).order_by(desc('occured_at')).all()
         for event in response['events']:
             new_event = Event(self.id, event['description'])
             new_event.occured_at = event['occurred_at']
@@ -48,8 +53,14 @@ class Package(db.Model):
             new_event.state = event['state_province']
             new_event.postal_code = event['postal_code']
             new_event.signer = event['signer']
-            db.session.add(new_event)
-            db.session.commit()
+            if self.updated == False:
+                db.session.add(new_event)
+                db.session.commit()
+                continue
+            elif datetime.strptime(new_event.occured_at.replace('Z', ""), '%Y-%m-%dT%H:%M:%S') > events[0].occured_at:
+                db.session.add(new_event)
+                db.session.commit()
+        self.updated = True
 
 
 class Event(db.Model):

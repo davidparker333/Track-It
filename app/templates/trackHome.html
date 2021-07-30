@@ -3,29 +3,38 @@
 {% block content %}
 
 <div class="row my-5">
-    <div class="col-7 col-md-10">
+    <div class="col-7 col-md-9">
         <h2 class="open-sans-light">Your Packages</h2>
     </div>
-    <div class="col-5 col-md-2">
+    <div class="col-5 col-md-3">
         <a href="{{ url_for('track.add_package') }}"><button class="btn primary wide">Add</button></a>
+        <a href="{{ url_for('track.update_all') }}"><button class="btn secondary wide">Update All</button></a>
     </div>
 </div>
 <div class="row">
-        {% if packages == [] %}
-        <h6 class="open-sans-light">You're not tracking any packages yet. Click on "Add" to keep tabs on your stuff!</h6>
-        {% endif %}
-        {% for package in packages %}
-            <div class="col-12 col-md-3 my-3">
-              <div class="card white">
-                <div class="card-body">
-                  <h4 class="card-title mb-3 text-center">{{ package.nickname }}</h4>
-                  <p class="card-text text-center">{{ events[loop.index0].description }} {{ emojis[loop.index0] }}</p>
-                  <p class="card-text text-center">{{ moment(events[loop.index0].occured_at).format('MM-DD-YY h:mm A') }}</p>
-                  <a href="#" class="btn primary center">More Info</a>
-                </div>
-              </div>
-              </div>
+  {% if packages == [] %}
+  <h6 class="open-sans-light">You're not tracking any packages yet. Click on "Add" to keep tabs on your stuff!</h6>
+  {% endif %}
+  {% for package in packages %}
+      <div class="col-12 col-md-3 my-3">
+        <div class="card white">
+          <div class="card-body">
+            <h4 class="card-title mb-3 text-center">{{ package.nickname }}</h4>
+            <p class="card-text text-center">{{ events[loop.index0].description }} {{ emojis[loop.index0] }}</p>
+            <p class="card-text text-center">{{ events[loop.index0].occured_at.strftime('%a, %b %d - %I:%M %p') }}</p>
+            <a href="{{ url_for('track.package_info', package_id=package.id) }}" class="btn primary wide">More Info</a>
+            <a href="{{ url_for('track.update_package', package_id=package.id) }}" class="btn primary wide">Update</a>
+          </div>
+        </div>
+        </div>
         {% endfor %}
 </div>
+{% if packages %}
+<div class="row my-5">
+  <div class="col-12">
+    <h5 class="open-sans-light text-center">No more packages! 😉</h5>
+  </div>
+</div>
+{% endif %}
 
 {% endblock content %}

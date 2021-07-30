@@ -3,6 +3,7 @@ from . import bp as track
 from app import db
 from .track_config import Track_Config
 import requests
+from datetime import datetime
 from .models import Package, Event
 from app.blueprints.auth.models import User
 from .forms import PackageForm
@@ -20,7 +21,7 @@ def index():
     for package in packages:
         event = Event.query.filter(Event.package_id == package.id).order_by(desc('occured_at')).first()
         events.append(event)
-        if event.description == 'Delivered':
+        if "Delivered" in event.description:
             emojis.append('📦🎉')
         elif "delivery" in event.description:
             emojis.append('🚚')
@@ -58,3 +59,25 @@ def add_package():
             flash('Package added successfully!', 'success')
             return redirect(url_for('track.index'))
     return render_template('addPackage.html', form=form, title=title)
+
+@track.route('/info/<int:package_id>')
+@login_required
+def package_info(package_id):
+    title = 'info'
+    package = Package.query.get_or_404(package_id)
+    return render_template('packageInfo.html', title=title, package=package)
+
+@track.route('update/<int:package_id>')
+@login_required
+def update_package(package_id):
+    package = Package.query.get_or_404(package_id)
+    package.populate()
+    return redirect(url_for('track.index'))
+
+@track.route('/update')
+@login_required
+def update_all():
+    packages = Package.query.filter(Package.customer_id == current_user.id).all()
+    for package in packages:
+        package.populate()
+    return redirect(url_for('track.index'))
