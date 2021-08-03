@@ -90,3 +90,30 @@ a:hover {
 .wide {
     width: 49%
 }
+
+#loading-wrapper {
+    display: none;
+}
+
+.loading {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background-color: rgba(255, 255, 255, .5);
+    z-index: 1000;
+    display: flex;
+}
+
+.loading-img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pacman {
+    width: 50px;
+    height: 50px;
+}
