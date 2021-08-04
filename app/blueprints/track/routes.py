@@ -7,7 +7,7 @@ from datetime import datetime
 from .models import Package, Event
 from app.blueprints.auth.models import User
 from .forms import PackageForm
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, abort
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 
@@ -65,14 +65,28 @@ def add_package():
 def package_info(package_id):
     title = 'info'
     package = Package.query.get_or_404(package_id)
-    return render_template('packageInfo.html', title=title, package=package)
+    events = Event.query.filter(Event.package_id == package.id).all()
+    if package.customer_id != current_user.id:
+        return abort(401, "You do not have access to this package")
+    return render_template('packageInfo.html', title=title, package=package, events=events)
 
 @track.route('update/<int:package_id>')
 @login_required
 def update_package(package_id):
     package = Package.query.get_or_404(package_id)
+    if package.customer_id != current_user.id:
+        return abort(401, "You do not have access to this package")
     package.populate()
     return redirect(url_for('track.index'))
+
+@track.route('/info/<int:package_id>/update')
+@login_required
+def update_package_info(package_id):
+    package = Package.query.get_or_404(package_id)
+    if package.customer_id != current_user.id:
+        return abort(401, "You do not have access to this package")
+    package.populate()
+    return redirect(url_for('track.package_info', package_id=package.id))
 
 @track.route('/update')
 @login_required

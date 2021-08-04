@@ -3,12 +3,33 @@
 {% block content %}
 
 <div class="row my-5">
-    <div class="col-7 col-md-10">
+    <div class="col-4 col-md-9">
         <h2 class="open-sans-light">{{ package.nickname }}</h2>
     </div>
-    <div class="col-5 col-md-2">
-        <a href="#"><button class="btn primary wide">Delete</button></a>
+    <div class="col-8 col-md-3">
+        <a href="{{ url_for('track.update_package_info', package_id=package.id) }}" onclick="loading()"><button class="btn primary wide">Update</button></a>
+        <a href="#"><button class="btn secondary wide">Delete</button></a>
     </div>
 </div>
+
+{% for event in events %}
+<div class="row pt-3 text-center">
+    <div class="col-0 col-md-3"></div>
+    <div class="col-12 col-md-6">
+        <div class="card white">
+            <div class="card-body">
+              <h5 class="card-title">{{ event.description }}</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item white">{{ event.city_locality }}, {{ event.state }}</li>
+                    <li class="list-group-item white">{{ event.occured_at.strftime('%a, %b %d - %I:%M %p') }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-0 col-md-3"></div>
+</div>
+{% endfor %}
+
+<div class="row my-5"></div>
 
 {% endblock content %}
