@@ -117,3 +117,9 @@ a:hover {
     width: 150px;
     height: 150px;
 }
+
+.sign-up {
+    width: 25%;
+    display: block;
+    margin: auto;
+}
