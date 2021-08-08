@@ -21,14 +21,15 @@ def index():
     for package in packages:
         event = Event.query.filter(Event.package_id == package.id).order_by(desc('occured_at')).first()
         events.append(event)
-        if "Delivered" in event.description:
-            emojis.append('📦🎉')
-        elif "delivery" in event.description:
-            emojis.append('🚚')
-        elif "facility" in event.description:
-            emojis.append('🏭')
-        else:
-            emojis.append('📦💨')
+        if hasattr(event, 'description'):
+            if "Delivered" in event.description:
+                emojis.append('📦🎉')
+            elif "delivery" in event.description:
+                emojis.append('🚚')
+            elif "facility" in event.description:
+                emojis.append('🏭')
+            else:
+                emojis.append('📦💨')
     return render_template('trackHome.html', packages=packages, title=title, events=events, emojis=emojis)
 
 @track.route('/add', methods=['GET', 'POST'])
@@ -65,7 +66,7 @@ def add_package():
 def package_info(package_id):
     title = 'info'
     package = Package.query.get_or_404(package_id)
-    events = Event.query.filter(Event.package_id == package.id).all()
+    events = Event.query.filter(Event.package_id == package.id).order_by(desc('occured_at')).all()
     if package.customer_id != current_user.id:
         return abort(401, "You do not have access to this package")
     return render_template('packageInfo.html', title=title, package=package, events=events)
