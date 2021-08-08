@@ -62,6 +62,13 @@ class Package(db.Model):
                 db.session.commit()
         self.updated = True
 
+    def delete(self):
+        events = Event.query.filter(Event.package_id == self.id).all()
+        for event in events:
+            db.session.delete(event)
+        db.session.delete(self)
+        db.session.commit()
+
 
 class Event(db.Model):
 

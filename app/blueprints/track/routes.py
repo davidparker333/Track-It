@@ -96,3 +96,13 @@ def update_all():
     for package in packages:
         package.populate()
     return redirect(url_for('track.index'))
+
+@track.route('/delete/<int:package_id>')
+@login_required
+def delete(package_id):
+    package = Package.query.get_or_404(package_id)
+    if package.customer_id != current_user.id:
+        return abort(401, "You do not have access to this package")
+    package.delete()
+    flash(f'{package.nickname} has been deleted!', 'warning')
+    return redirect(url_for('track.index'))

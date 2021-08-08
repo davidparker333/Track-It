@@ -8,7 +8,7 @@
     </div>
     <div class="col-8 col-md-3">
         <a href="{{ url_for('track.update_package_info', package_id=package.id) }}" onclick="loading()"><button class="btn primary wide">Update</button></a>
-        <a href="#"><button class="btn secondary wide">Delete</button></a>
+        <a href="{{ url_for('track.delete', package_id=package.id) }}" onclick="loading()"><button class="btn secondary wide">Delete</button></a>
     </div>
 </div>
 
