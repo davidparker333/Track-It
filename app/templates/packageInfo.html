@@ -5,6 +5,7 @@
 <div class="row my-5">
     <div class="col-4 col-md-9">
         <h2 class="open-sans-light">{{ package.nickname }}</h2>
+        <h6 class="open-sans-light"><a href="{{ package.tracking_url }}" target="_blank">{{ package.carrier }}</a> - {{ package.tracking_number }}</h6>
     </div>
     <div class="col-8 col-md-3">
         <a href="{{ url_for('track.update_package_info', package_id=package.id) }}" onclick="loading()"><button class="btn primary wide">Update</button></a>
