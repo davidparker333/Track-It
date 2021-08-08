@@ -21,14 +21,15 @@ def index():
     for package in packages:
         event = Event.query.filter(Event.package_id == package.id).order_by(desc('occured_at')).first()
         events.append(event)
-        if "Delivered" in event.description:
-            emojis.append('📦🎉')
-        elif "delivery" in event.description:
-            emojis.append('🚚')
-        elif "facility" in event.description:
-            emojis.append('🏭')
-        else:
-            emojis.append('📦💨')
+        if hasattr(event, 'description'):
+            if "Delivered" in event.description:
+                emojis.append('📦🎉')
+            elif "delivery" in event.description:
+                emojis.append('🚚')
+            elif "facility" in event.description:
+                emojis.append('🏭')
+            else:
+                emojis.append('📦💨')
     return render_template('trackHome.html', packages=packages, title=title, events=events, emojis=emojis)
 
 @track.route('/add', methods=['GET', 'POST'])
@@ -65,7 +66,7 @@ def add_package():
 def package_info(package_id):
     title = 'info'
     package = Package.query.get_or_404(package_id)
-    events = Event.query.filter(Event.package_id == package.id).all()
+    events = Event.query.filter(Event.package_id == package.id).order_by(desc('occured_at')).all()
     if package.customer_id != current_user.id:
         return abort(401, "You do not have access to this package")
     return render_template('packageInfo.html', title=title, package=package, events=events)
@@ -94,4 +95,14 @@ def update_all():
     packages = Package.query.filter(Package.customer_id == current_user.id).all()
     for package in packages:
         package.populate()
+    return redirect(url_for('track.index'))
+
+@track.route('/delete/<int:package_id>')
+@login_required
+def delete(package_id):
+    package = Package.query.get_or_404(package_id)
+    if package.customer_id != current_user.id:
+        return abort(401, "You do not have access to this package")
+    package.delete()
+    flash(f'{package.nickname} has been deleted!', 'warning')
     return redirect(url_for('track.index'))
