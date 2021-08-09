@@ -1,6 +1,7 @@
 from . import bp as home
 from app import db
 from flask import render_template, redirect, url_for, flash, request
+from flask_login import login_required, current_user
 from app.blueprints.auth.models import User
 from app.blueprints.auth.forms import RegisterForm
 
@@ -27,3 +28,10 @@ def register():
         flash(f'Thank you, {username}. You have successfully registered! Please sign in.', 'success')
         return redirect(url_for('auth.login'))
     return render_template('register.html', title=title, form=form)
+
+@home.route('/account')
+@login_required
+def account():
+    title = "my account"
+    user = current_user
+    return render_template('myAccount.html', title=title, user=user)

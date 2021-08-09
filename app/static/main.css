@@ -123,3 +123,7 @@ a:hover {
     display: block;
     margin: auto;
 }
+
+.tall {
+    height: 100%;
+}
