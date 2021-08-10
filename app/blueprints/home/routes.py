@@ -4,6 +4,7 @@ from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from app.blueprints.auth.models import User
 from app.blueprints.auth.forms import RegisterForm
+from .forms import AccountForm
 
 @home.route('/')
 def index():
@@ -29,9 +30,19 @@ def register():
         return redirect(url_for('auth.login'))
     return render_template('register.html', title=title, form=form)
 
-@home.route('/account')
+@home.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
     title = "my account"
+    form = AccountForm()
     user = current_user
-    return render_template('myAccount.html', title=title, user=user)
+    if request.method == 'POST' and form.validate_on_submit():
+        username = form.username.data
+        email = form.email.data
+        current_user.username = username
+        current_user.email = email
+        db.session.add(current_user)
+        db.session.commit()
+        flash('Your info has been updated!', 'success')
+        return redirect(url_for('home.account'))
+    return render_template('myAccount.html', title=title, user=user, form=form)
