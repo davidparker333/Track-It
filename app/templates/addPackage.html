@@ -3,16 +3,16 @@
 {% block content %}
 
 <div class="row my-5">
-    <div class="col-7 col-md-10">
+    <div class="col-6 col-md-10">
         <h2 class="open-sans-light">Add Package</h2>
     </div>
-    <div class="col-5 col-md-2">
+    <div class="col-6 col-md-2">
         <form action="" method="POST">
             {{ form.hidden_tag() }}
         {{ form.submit(class="btn primary wide", onclick="loading()") }}
     </div>
 </div>
-<div class="row d-flex flex-row">
+<!-- <div class="row d-flex flex-row">
     <div class="col-12 col-md-5 my-5">
         <h5 class="open-sans mx-5">Nickname:</h5>
     </div>
@@ -34,6 +34,24 @@
           </div>
     </div>
 </form>
+</div> -->
+<div class="row">
+    <div class="col-12 col-sm-2 col-md-4"></div>
+    <div class="col-12 col-sm-8 col-md-4 my-5">
+            <div class="form-group d-flex flex-column justify-content-center">
+                <fieldset class="my-5">
+                    {{ form.nickname(class="form-control white borderless", placeholder="Nickname", autocomplete="off") }}
+                </fieldset>
+                <fieldset class="my-5">
+                    {{ form.carrier(class="form-select white borderless", placeholder="Carrier") }}
+                </fieldset>
+                <fieldset class="my-5">
+                    {{ form.tracking_number(class="form-control white borderless", placeholder="Tracking Number", autocomplete="off") }}
+                </fieldset>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 col-sm-2 col-md-4"></div>
 </div>
 
 {% endblock content %}
