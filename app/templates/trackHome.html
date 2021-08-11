@@ -17,7 +17,7 @@
   {% endif %}
   {% for package in packages %}
       <div class="col-12 col-md-3 my-3">
-        <div class="card white">
+        <div class="card white tall">
           <div class="card-body">
             <h4 class="card-title mb-3 text-center">{{ package.nickname }}</h4>
             {% if events[loop.index0]['description'] %}
@@ -26,8 +26,8 @@
             {% if events[loop.index0]['occured_at'] %}
             <p class="card-text text-center">{{ events[loop.index0].occured_at.strftime('%a, %b %d - %I:%M %p') }}</p>
             {% endif %}
-            <a href="{{ url_for('track.package_info', package_id=package.id) }}" class="btn primary wide">More Info</a>
-            <a href="{{ url_for('track.update_package', package_id=package.id) }}" class="btn primary wide" onclick="loading()">Update</a>
+              <a href="{{ url_for('track.package_info', package_id=package.id) }}" class="btn primary wide">More Info</a>
+              <a href="{{ url_for('track.update_package', package_id=package.id) }}" class="btn primary wide" onclick="loading()">Update</a>
           </div>
         </div>
         </div>
