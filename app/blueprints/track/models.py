@@ -46,6 +46,9 @@ class Package(db.Model):
         self.actual_delivery_date = response['actual_delivery_date']
         self.exception_description = response['exception_description']
         events = Event.query.filter(Event.package_id == self.id).order_by(desc('occured_at')).all()
+        for e in events:
+            db.session.delete(e)
+            db.session.commit()
         for event in response['events']:
             new_event = Event(self.id, event['description'])
             new_event.occured_at = event['occurred_at']
@@ -53,14 +56,8 @@ class Package(db.Model):
             new_event.state = event['state_province']
             new_event.postal_code = event['postal_code']
             new_event.signer = event['signer']
-            if self.updated == False:
-                db.session.add(new_event)
-                db.session.commit()
-                continue
-            elif datetime.strptime(new_event.occured_at.replace('Z', ""), '%Y-%m-%dT%H:%M:%S') > events[0].occured_at:
-                db.session.add(new_event)
-                db.session.commit()
-        self.updated = True
+            db.session.add(new_event)
+            db.session.commit()
 
     def delete(self):
         events = Event.query.filter(Event.package_id == self.id).all()
