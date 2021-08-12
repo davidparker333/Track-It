@@ -15,7 +15,7 @@ from sqlalchemy import desc
 @login_required
 def index():
     title = "home"
-    packages = Package.query.filter(Package.customer_id == current_user.id).all()
+    packages = Package.query.filter(Package.customer_id == current_user.id).order_by(desc('date_created')).all()
     events = []
     emojis = []
     for package in packages:
