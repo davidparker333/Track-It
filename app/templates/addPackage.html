@@ -37,15 +37,18 @@
 </div> -->
 <div class="row">
     <div class="col-12 col-sm-2 col-md-4"></div>
-    <div class="col-12 col-sm-8 col-md-4 my-5">
+    <div class="col-12 col-sm-8 col-md-4 my-md-3">
             <div class="form-group d-flex flex-column justify-content-center">
                 <fieldset class="my-5">
+                    {{ form.nickname.label(class="my-3") }}
                     {{ form.nickname(class="form-control white borderless", placeholder="Nickname", autocomplete="off") }}
                 </fieldset>
                 <fieldset class="my-5">
+                    {{ form.carrier.label(class="my-3") }}
                     {{ form.carrier(class="form-select white borderless", placeholder="Carrier") }}
                 </fieldset>
                 <fieldset class="my-5">
+                    {{ form.tracking_number.label(class="my-3") }}
                     {{ form.tracking_number(class="form-control white borderless", placeholder="Tracking Number", autocomplete="off") }}
                 </fieldset>
             </div>
